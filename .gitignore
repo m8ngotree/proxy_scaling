@@ -1,0 +1,13 @@
+data/olmix_release/
+data/domains/
+checkpoints/
+results/
+OLMo/
+olmes/
+__pycache__/
+*.pyc
+*.bin
+*.pt
+*.safetensors
+.env
+wandb/
