@@ -1,0 +1,24 @@
+{
+  "n_mixtures": 8,
+  "mixture_ids": [
+    1,
+    0,
+    2,
+    3,
+    4,
+    6,
+    7,
+    5
+  ],
+  "run_ids": [
+    "d4nbvsr7",
+    "1m4z4lar",
+    "ube633ci",
+    "8sqa2jjf",
+    "9xuqfdjn",
+    "ugzhxwii",
+    "z83ne5au",
+    "7zina0mg"
+  ],
+  "note": "Subset of shared_mixtures.json for 150M target training (cost constraint)"
+}

@@ -44,11 +44,21 @@ def main():
     meta = json.load(open(META_PATH))
 
     id_col = "run" if "run" in ratios_df.columns else "run_id"
-    domain_cols = [
-        c
-        for c in ratios_df.columns
-        if c not in [id_col, "name", "index"] and c.startswith("dclm:")
-    ]
+    # Domain columns are any column that isn't an ID/metadata column.
+    # The actual CSV uses bare topic names (no "dclm:" prefix).
+    NON_DOMAIN_COLS = {id_col, "name", "index"}
+    raw_domain_cols = [c for c in ratios_df.columns if c not in NON_DOMAIN_COLS]
+    # Normalise to "dclm:{topic}" format to match the rest of the codebase.
+    # Build a mapping from raw name -> dclm: name.
+    domain_col_map = {}
+    for c in raw_domain_cols:
+        if c.startswith("dclm:"):
+            domain_col_map[c] = c
+        else:
+            domain_col_map[c] = f"dclm:{c}"
+    # Rename in dataframe so downstream code sees "dclm:" prefixed columns.
+    ratios_df = ratios_df.rename(columns=domain_col_map)
+    domain_cols = list(domain_col_map.values())
 
     print(f"Loaded {len(ratios_df)} proxy runs")
     print(f"Domain columns ({len(domain_cols)}): {domain_cols}")
